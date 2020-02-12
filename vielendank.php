@@ -1,8 +1,13 @@
 <?php
 
-$betreff = "Anmeldung im SSV von ".$_POST['vorname']." ".$_POST['nachname'];
+define('VEREINSNAME', 'SSV Germania Wehrden e.V.');
+define('FORMULAR_URL', 'https://mitgliedsantrag.ssv-wehrden.de/confirm.php');
+define('ABSENDER_MAILADRESSE', 'info@ssv-wehrden.de');
+
+
+$betreff = "Mitgliedsantrag: ".$_POST['vorname']." ".$_POST['nachname'];
 $mitgliedContent = "Hallo ".$_POST['vorname'].",<br/>";
-$mitgliedContent .= "vielen Dank fuer deinen Mitgliedsantrag im SSV Germania Wehrden e.V.<br/><br/>";
+$mitgliedContent .= "vielen Dank fuer deinen Mitgliedsantrag im ".VEREINSNAME."<br/><br/>";
 $mitgliedContent .= "Hier ist die Zusammenfassung deiner Daten:<br/><br/>";
 $mitgliedContent .= "Vorname: " . $_POST['vorname'] ."<br/>";
 $mitgliedContent .= "Nachname: " . $_POST['nachname'] ."<br/>";
@@ -24,20 +29,16 @@ $mitgliedContent .= "Ehrenamtliches Engagement: " . (isset($_POST['ehrenamtliche
 $mitgliedContent .= "Unterstuetzung bei Veranstaltungen: " . (isset($_POST['ehrenamtliche-hilfe']) ? "Ja" : "Nein") ."<br/>";
 $mitgliedContent .= "<br/>";
 $mitgliedContent .= "Bitte bestaetige deine Anmeldung durch den Klick auf diesen Link:<br/>";
-$href = "https://mitgliedsantrag.ssv-wehrden.de/confirm.php?key=".md5($_POST['email']);
+$href = FORMULAR_URL."?key=".md5($_POST['email']);
 $mitgliedContent .= "<a href=\"".$href."\" />".$href."</a><br/><br/>";
 $mitgliedContent .= "sportliche Gruesse<br/>";
 $mitgliedContent .= "gez. der Vorstand<br/>";
 
 function mail_att($to,$subject,$message,$anhang = null) {
-   $absender = "SSV Germania Wehrden e.V.";
-   $absender_mail = "info@ssv-wehrden.de";
-   $reply = "info@ssv-wehrden.de";
-
    $mime_boundary = "-----=" . md5(uniqid(mt_rand(), 1));
 
-   $header  ="From:".$absender."<".$absender_mail.">\n";
-   $header .= "Reply-To: ".$reply."\n";
+   $header  ="From:".VEREINSNAME."<".ABSENDER_MAILADRESSE.">\n";
+   $header .= "Reply-To: ".ABSENDER_MAILADRESSE."\n";
 
    $header.= "MIME-Version: 1.0\r\n";
    $header.= "Content-Type: multipart/mixed;\r\n";
@@ -49,13 +50,11 @@ function mail_att($to,$subject,$message,$anhang = null) {
    $content.= "Content-Transfer-Encoding: 8bit\r\n\r\n";
    $content.= $message."\r\n";
 
-   //$anhang ist ein Mehrdimensionals Array
-   //$anhang enthält mehrere Dateien
     if($anhang != null) {
-        if(is_array($anhang) AND is_array(current($anhang)))
-            {
-            foreach($anhang AS $dat)
-                {
+        //$anhang ist ein Mehrdimensionals Array
+        //$anhang enthält mehrere Dateien
+        if(is_array($anhang) && is_array(current($anhang))) {
+            foreach($anhang as $dat) {
                 $data = chunk_split(base64_encode($dat['data']));
                 $content.= "--".$mime_boundary."\r\n";
                 $content.= "Content-Disposition: attachment;\r\n";
@@ -64,11 +63,10 @@ function mail_att($to,$subject,$message,$anhang = null) {
                 $content.= "Content-Type: ".$dat['type']."; name=\"".$dat['name']."\"\r\n";
                 $content.= "Content-Transfer-Encoding: base64\r\n\r\n";
                 $content.= $data."\r\n";
-                }
-            $content .= "--".$mime_boundary."--"; 
             }
-        else //Nur 1 Datei als Anhang
-            {
+            $content .= "--".$mime_boundary."--"; 
+        } else { //Nur 1 Datei als Anhang
+            
             $data = chunk_split(base64_encode($anhang['data']));
             $content.= "--".$mime_boundary."\r\n";
             $content.= "Content-Disposition: attachment;\r\n";
@@ -80,8 +78,11 @@ function mail_att($to,$subject,$message,$anhang = null) {
         } 
     }
 
-   if(@mail($to, $subject, $content, $header)) return true;
-   else return false;
+    if(@mail($to, $subject, $content, $header)) {
+       return true;
+    } else {
+        return false;
+    }
 }
 
 // Mail an neues Mitglied ohne Anhang
@@ -180,8 +181,8 @@ mail_att("info@ssv-wehrden.de",$betreff, $mitgliedContent, $anhang);
   <div class="py-5 text-center">
     <h2>Fast geschafft! - Antrag auf Mitgliedschaft</h2>
     <div class="alert alert-primary" role="alert">
-		Wir haben dir noch eine E-Mail geschickt, mit der du deine Antrag final bestätigen musst.
-	</div>
+        Wir haben dir noch eine E-Mail geschickt, mit der du deine Antrag final bestätigen musst.
+    </div>
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -193,9 +194,9 @@ mail_att("info@ssv-wehrden.de",$betreff, $mitgliedContent, $anhang);
 </div>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script>window.jQuery || document.write('<script src="jquery.slim.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="jquery.slim.min.js"><\/script>')</script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<script src="form-validation.js"></script></body>
+    <script src="form-validation.js"></script></body>
 </body>
 </html>
