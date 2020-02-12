@@ -1,9 +1,5 @@
 <?php
-
-define('VEREINSNAME', 'SSV Germania Wehrden e.V.');
-define('FORMULAR_URL', 'https://mitgliedsantrag.ssv-wehrden.de/confirm.php');
-define('ABSENDER_MAILADRESSE', 'info@ssv-wehrden.de');
-
+include_once 'config.inc.php';
 
 $betreff = "Mitgliedsantrag: ".$_POST['vorname']." ".$_POST['nachname'];
 $mitgliedContent = "Hallo ".$_POST['vorname'].",<br/>";
@@ -29,7 +25,7 @@ $mitgliedContent .= "Ehrenamtliches Engagement: " . (isset($_POST['ehrenamtliche
 $mitgliedContent .= "Unterstuetzung bei Veranstaltungen: " . (isset($_POST['ehrenamtliche-hilfe']) ? "Ja" : "Nein") ."<br/>";
 $mitgliedContent .= "<br/>";
 $mitgliedContent .= "Bitte bestaetige deine Anmeldung durch den Klick auf diesen Link:<br/>";
-$href = FORMULAR_URL."?key=".md5($_POST['email']);
+$href = CONFIRM_URL."?key=".md5($_POST['email']);
 $mitgliedContent .= "<a href=\"".$href."\" />".$href."</a><br/><br/>";
 $mitgliedContent .= "sportliche Gruesse<br/>";
 $mitgliedContent .= "gez. der Vorstand<br/>";
@@ -144,8 +140,7 @@ mail_att("info@ssv-wehrden.de",$betreff, $mitgliedContent, $anhang);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Stephan Watermeyer">
-    <title>SSV Germania Wehrden e.V. - Antrag auf Mitgliedschaft</title>
+    <title><?php echo VEREINSNAME; ?> - Antrag auf Mitgliedschaft</title>
 
     <link rel="canonical" href="https://mitgliedsantrag.ssv-wehrden.de">
 
@@ -186,9 +181,9 @@ mail_att("info@ssv-wehrden.de",$betreff, $mitgliedContent, $anhang);
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2020 SSV Germania Wehrden e.V.</p>
+    <p class="mb-1">&copy; <?php echo date ("Y "); echo VEREINSNAME; ?> </p>
     <ul class="list-inline">
-      <li class="list-inline-item"><a href="https://www.ssv-wehrden.de/verschiedenes/impressum/">Impressum und Datenschutz</a></li>
+      <li class="list-inline-item"><a href="<?php echo DATENSCHUTZ_IMPRESSUM_URL; ?>">Impressum und Datenschutz</a></li>
     </ul>
   </footer>
 </div>

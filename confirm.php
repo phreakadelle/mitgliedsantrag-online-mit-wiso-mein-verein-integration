@@ -1,13 +1,13 @@
-
-
+<?php
+include_once 'config.inc.php';
+?>
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Stephan Watermeyer">
-    <title>SSV Germania Wehrden e.V. - Antrag auf Mitgliedschaft</title>
+    <title><?php echo VEREINSNAME; ?> - Antrag auf Mitgliedschaft</title>
 
     <link rel="canonical" href="https://mitgliedsantrag.ssv-wehrden.de">
 
@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Favicons -->
-<meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
-<meta name="theme-color" content="#563d7c">
+    <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
 
 
     <style>
@@ -48,9 +48,9 @@
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2020 SSV Germania Wehrden e.V.</p>
+    <p class="mb-1">&copy; <?php echo date ("Y "); echo VEREINSNAME; ?> </p>
     <ul class="list-inline">
-      <li class="list-inline-item"><a href="https://www.ssv-wehrden.de/verschiedenes/impressum/">Impressum und Datenschutz</a></li>
+      <li class="list-inline-item"><a href="<?php echo DATENSCHUTZ_IMPRESSUM_URL; ?>">Impressum und Datenschutz</a></li>
     </ul>
   </footer>
 </div>
