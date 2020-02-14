@@ -98,7 +98,7 @@ $csvContent .= "\"".$_POST['strasse']."\";"; // 3
 $csvContent .= "\"".$_POST['plz']."\";"; // 4
 $csvContent .= "\"".$_POST['ort']."\";"; // 5
 $csvContent .= "\"".date("d.m.Y", strtotime($_POST['geburtsdatum']))."\";"; // 6
-$csvContent .= "\"".($_POST['geschlecht'] == "maennlich" ? "M" : "D")."\";"; // 7
+$csvContent .= "\"".($_POST['geschlecht'] == "maennlich" ? "M" : "W")."\";"; // 7
 $csvContent .= "\"".$_POST['iban']."\";"; // 8
 $csvContent .= "\"".$_POST['bic']."\";"; // 9
 $csvContent .= "\"".$_POST['kontoinhaber']."\";"; // 10
