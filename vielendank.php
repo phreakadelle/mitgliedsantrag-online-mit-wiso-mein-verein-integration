@@ -1,6 +1,11 @@
 <?php
 include_once 'config.inc.php';
 
+if(!isset($_POST['g-recaptcha-response'], $_POST['vorname'], $_POST['nachname'], $_POST['email'], $_POST['geburtsdatum'], $_POST['iban'])) {
+    header('location: index.php');
+    die('Fehler, bitte von vorne: https://mitgliedsantrag.ssv-wehrden.de/');
+}
+
 $betreff = "Mitgliedsantrag: ".$_POST['vorname']." ".$_POST['nachname'];
 $mitgliedContent = "Hallo ".$_POST['vorname'].",<br/>";
 $mitgliedContent .= "vielen Dank fuer deinen Mitgliedsantrag im ".VEREINSNAME."<br/><br/>";
