@@ -1,15 +1,17 @@
 <?php
 include_once 'config.inc.php';
 ?>
+
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="author" content="Stephan Watermeyer">
     <title><?php echo VEREINSNAME; ?> - Antrag auf Mitgliedschaft</title>
 
-    <link rel="canonical" href="<?php echo $CANONICAL_URL; ?>">
+    <link rel="canonical" href="https://mitgliedsantrag.ssv-wehrden.de">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -40,8 +42,8 @@ include_once 'config.inc.php';
   <body class="bg-light">
     <div class="container">
   <div class="py-5 text-center">
-    <h2><?php echo VEREINSNAME; ?> - Antrag auf Mitgliedschaft</h2>
-    <p class="lead">Durch das Ausfüllen dieses Formulars stellst Du den Antrag auf Mitgliedschaft <?php echo VEREINSNAME; ?></p>
+    <h2>SSV Germania Wehrden e.V. - Antrag auf Mitgliedschaft</h2>
+    <p class="lead">Durch das Ausfüllen dieses Formulars stellst Du den Antrag auf Mitgliedschaft im Sportverein Wehrden.</p>
     <p class="lead">
 	Seit 2019 wird die Mitgliedschaft im Verein nur noch online entgegen genommen. Du erhälst eine schriftliche Bestätigung deiner Anmeldung.
 	</p>
@@ -52,7 +54,12 @@ include_once 'config.inc.php';
 	Hinweis: Beiträge werden im Verein immer rückwirkend für das ganze Jahr fällig. Es gibt keine anteiligen Mitgliedsbeiträge bei späterem Eintritt oder Kündigung. Der Beitragseinzug findet in der Regel im Dezember statt.
 	</p>
   </div>
-
+  <?php  if(isset($_GET['error'])) { ?>
+            <div class="alert alert-danger" role="alert">
+                <h2>Fehler</h2>
+                Du hast leider nicht alle Pflichtfelder ausgefüllt.
+            </div>
+  <? }?>
   <div class="row">
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Deine Daten</h4>
@@ -183,7 +190,7 @@ include_once 'config.inc.php';
         </div>
 		<div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" name="lastschrift-akzeptiert" id="lastschrift-akzeptiert">
-          <label class="custom-control-label" for="lastschrift-akzeptiert">Ich ermächtige den <?php echo VEREINSNAME; ?> (Gläubiger Identifikationsnummer: <?php echo SEPA_GLAEUBIGER_ID; ?>), wiederkehrende Zahlungen von meinem Konto mittels SEPA-Basislastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom <?php echo VEREINSNAME; ?> auf mein Konto gezogenen Lastschriften einzulösen.
+          <label class="custom-control-label" for="lastschrift-akzeptiert">Ich ermächtige den SSV Wehrden (Gläubiger Identifikationsnummer: DE 38 ZZZ 00000 939 700), wiederkehrende Zahlungen von meinem Konto mittels SEPA-Basislastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom SSV Wehrden auf mein Konto gezogenen Lastschriften einzulösen.
 Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.
 </label>
         </div>
@@ -192,7 +199,7 @@ Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, 
 
 		<div class="custom-control custom-checkbox">
 			<input type="checkbox" class="custom-control-input" name="satzung-akzeptiert" id="satzung-akzeptiert">
-			<label class="custom-control-label" for="satzung-akzeptiert">Ich erkenne die Satzung und Ordnungen des <?php echo VEREINSNAME; ?> mit all ihren Rechten und Pflichten an.  Weitere Details können der Satzung entnommen werden.
+			<label class="custom-control-label" for="satzung-akzeptiert">Ich erkenne die Satzung und Ordnungen des SSV Germania Wehrden e.V. mit all ihren Rechten und Pflichten an.  Weitere Details können der Satzung entnommen werden.
 			</label>
 		</div>
 		
@@ -252,7 +259,7 @@ Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, 
 		
 		<div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" id="ehrenamtliche-hilfe" name="ehrenamtliche-hilfe">
-          <label class="custom-control-label" for="ehrenamtliche-hilfe">Ich würde bei Vereinsveranstaltungen mit helfen und/oder z.B. einen Kuchen backen.</label>
+          <label class="custom-control-label" for="ehrenamtliche-hilfe">Ich würde gerne bei Vereinsveranstaltungen mithelfen und/oder z.B. einen Kuchen backen.</label>
         </div>
 		
 		<div class="custom-control custom-checkbox">
@@ -268,7 +275,7 @@ Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; <?php echo date ("Y "); echo VEREINSNAME; ?> </p>
     <ul class="list-inline">
-      <li class="list-inline-item"><a href="<?php echo DATENSCHUTZ_IMPRESSUM_URL; ?>">Impressum und Datenschutz</a></li>
+      <li class="list-inline-item"><a href="https://www.ssv-wehrden.de/verschiedenes/impressum/">Impressum und Datenschutz</a></li>
     </ul>
   </footer>
 </div>

@@ -1,11 +1,14 @@
 <?php
 include_once 'config.inc.php';
 
-if(!isset($_POST['g-recaptcha-response'], $_POST['vorname'], $_POST['nachname'], $_POST['email'], $_POST['geburtsdatum'], $_POST['iban'])) {
-    header('location: index.php');
-    die('Fehler, bitte von vorne: '.CANONICAL_URL);
-}
+$mandatoryFields = array("g-recaptcha-response", "vorname", "nachname", "email", "geburtsdatum", "iban", "mobil");
 
+foreach($mandatoryFields as $val) {
+    if(!isset($_POST[$val])) {
+        header("location: index.php?error=true&field=".$val);
+        die('Fehler, bitte von vorne: ' . CANONICAL_URL);
+    }
+}
 $betreff = "Mitgliedsantrag: ".$_POST['vorname']." ".$_POST['nachname'];
 $mitgliedContent = "Hallo ".$_POST['vorname'].",<br/>";
 $mitgliedContent .= "vielen Dank fuer deinen Mitgliedsantrag im ".VEREINSNAME."<br/><br/>";
