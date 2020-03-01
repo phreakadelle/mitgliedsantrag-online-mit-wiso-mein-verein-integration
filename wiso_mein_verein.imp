@@ -9,6 +9,7 @@ Vorname=1
 Strasse=3
 PLZ=4
 Ort=5
+Laenderkuerzel=24
 Geschlecht_WM=7
 Telefon1=12
 Mobiltelefon=13

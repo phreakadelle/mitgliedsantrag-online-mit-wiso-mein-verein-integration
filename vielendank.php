@@ -99,7 +99,7 @@ mail_att($_POST['email'], $betreff, $mitgliedContent);
 
 // CSV Datei
 $csvContent = "";
-$csvContent .= "Vorname;Nachname;Strasse;PLZ;Ort;Geburtsdatum;Geschlecht;IBAN;BIC;Kontoinhaber;E-Mail;Telefon;Mobil;Beitrag;Satzung;Sportgruppe;Betreuer;Funktion;Eintrittsdatum;Anmerkung\n";
+$csvContent .= "Vorname;Nachname;Strasse;PLZ;Ort;Geburtsdatum;Geschlecht;IBAN;BIC;Kontoinhaber;E-Mail;Telefon;Mobil;Beitrag;Satzung;Sportgruppe;Betreuer;Funktion;Eintrittsdatum;Anmerkung;Land\n";
 $csvContent .= "\"".$_POST['vorname']."\";"; // 1
 $csvContent .= "\"".$_POST['nachname']."\";"; // 2
 $csvContent .= "\"".$_POST['strasse']."\";"; // 3
@@ -137,6 +137,7 @@ $csvContent .= "\"Ehrenamtliches Engagement: ".$ehrenamtlichesEngagement." - Hil
 $csvContent .= "\"".$ehrenamtlichesEngagement."\";"; // 21
 $csvContent .= "\"".$ehrenamtlicheHilfe."\";"; // 22
 $csvContent .= "\"01.01.".date("Y")."\";"; // 23
+$csvContent .= "\"D\";"; // 24
 file_put_contents("input.csv", iconv("UTF-8", "ISO-8859-1", $csvContent));
 
 
